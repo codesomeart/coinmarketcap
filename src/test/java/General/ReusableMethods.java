@@ -70,6 +70,10 @@ public class ReusableMethods {
 
     }
 
+    public static String getResponsePath(String key) {
+        return EnvGlobals.response.getBody().path(key, new String[0]) == null ? "" : EnvGlobals.response.getBody().path(key, new String[0]).toString();
+    }
+
     public static void thenFunction(int statusCode) {
         EnvGlobals.response.then().log().all().statusCode(statusCode);
     }
