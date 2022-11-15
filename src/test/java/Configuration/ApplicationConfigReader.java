@@ -12,12 +12,19 @@ public class ApplicationConfigReader {
     @Property("APIKey")
     private String APIKey;
 
+    @Property("conversionAmount")
+    private String conversionAmount;
+
+    @Property("conversionCurrency")
+    private String conversionCurrency;
+
     public ApplicationConfigReader() {
         PropertyLoader.newInstance().populate(this);
     }
 
     public String getBaseURL(){return BaseURL; }
     public String getAPIKey(){return APIKey; }
-
+    public String getconversionAmount(){return conversionAmount; }
+    public String getConversionCurrency(){return conversionCurrency; }
 
 }

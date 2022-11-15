@@ -1,15 +1,17 @@
 package General;
 
 import Configuration.EnvGlobals;
+import Configuration.configProperties;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
+import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReusableMethods {
 
+    public static List id;
     public static RequestSpecification REQUEST;
 
     public static void contentType(String contentType) {
@@ -23,6 +25,7 @@ public class ReusableMethods {
     }
 
     public static void whenFunction(String requestType, String endPoint) {
+        String[] str={"USDT","BTC","ETH"};
         byte var3 = -1;
         switch(requestType.hashCode()) {
             case -1335458389:
@@ -53,19 +56,19 @@ public class ReusableMethods {
 
         switch(var3) {
             case 0:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().post(endPoint, new Object[0]);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().post(endPoint);
                 break;
             case 1:
                 EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().get(endPoint);
                 break;
             case 2:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().delete(endPoint, new Object[0]);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().delete(endPoint);
                 break;
             case 3:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().put(endPoint, new Object[0]);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().put(endPoint);
                 break;
             case 4:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().patch(endPoint, new Object[0]);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().patch(endPoint);
         }
 
     }
@@ -86,6 +89,37 @@ public class ReusableMethods {
         }
 
         return map;
+    }
+
+    public static void currencyConversion(String endPoint,String amount,String sourceCurrency){
+        if (sourceCurrency.equals("BTC")){
+            EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam("amount",amount).queryParam("convert", configProperties.conversionCurrency).queryParam("id",EnvGlobals.bitcoinId).get(endPoint);
+        }
+        else if (sourceCurrency.equals("USDT")){
+            EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam("amount",amount).queryParam("convert",configProperties.conversionCurrency).queryParam("id",EnvGlobals.USDTid).get(endPoint);
+        }
+        else if (sourceCurrency.equals("ETH")){
+            EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam("amount",amount).queryParam("convert",configProperties.conversionCurrency).queryParam("id",EnvGlobals.ethereumId).get(endPoint);
+        }
+    }
+
+    public static void currencyMapping(String endPoint){
+        String[] str={"USDT","BTC","ETH"};
+        EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams("symbol",str[0]+"," +str[1]+","+str[2]).get(endPoint);
+
+    }
+
+    public static String fetchIds(String nameOfCurrency){
+        JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
+        id = jsonPathEvaluator.get("data");
+        int ActualCount1 = id.size();
+        for (int i = 0 ;i<ActualCount1;i++){
+            if (ReusableMethods.getResponsePath("data["+i+"].name").equals(nameOfCurrency)){
+                EnvGlobals.cryptoId=ReusableMethods.getResponsePath("data["+i+"].id");
+                break;
+            }
+        }
+        return EnvGlobals.cryptoId;
     }
 
 }
