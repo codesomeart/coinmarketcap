@@ -7,5 +7,6 @@ public class configProperties {
     public static String APIKey = appConfig.getAPIKey();
     public static String conversionAmount = appConfig.getconversionAmount();
     public static String conversionCurrency = appConfig.getConversionCurrency();
+    public static String Url = appConfig.getUrl();
 
 }

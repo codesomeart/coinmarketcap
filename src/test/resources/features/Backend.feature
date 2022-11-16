@@ -23,5 +23,10 @@ Feature: Assignment Scenarios
       And user validates the response
       And user validates status code
 
+    @Assignment
+    Scenario: user wants to run case
+      Given user wants to run case
+      And user wants to scroll
+
 
 

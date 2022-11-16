@@ -5,6 +5,13 @@ import Configuration.configProperties;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,4 +128,52 @@ public class ReusableMethods {
         return EnvGlobals.cryptoId;
     }
 
+    public static void arriveToWebsite(){
+        try {
+            General.WebDriverFactory.getInstance();
+        } catch (Exception exception) {
+            throw new RuntimeException();
+        }
+    }
+
+    public static void scrollFullPage(){
+        WebDriver driver = WebDriverFactory.getDriver();
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0, document.documentElement.scrollHeight)");
+    }
+
+
+    public static void ClickingOn(By locator) {
+        try {
+
+            WebDriverWait wait = new WebDriverWait(WebDriverFactory.getDriver(), 20);
+
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+            {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+                {
+                    wait.until(ExpectedConditions.elementToBeClickable(locator));
+                    {
+                        WebElement link =  WebDriverFactory.getDriver().findElement(locator);
+                        link.click();
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void scrollToSpecificHeight(){
+        WebDriver driver = WebDriverFactory.getDriver();
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollBy(0,250)");
+    }
+
+    public static void validation(By locator){
+        WebDriver driver = WebDriverFactory.getDriver();
+        int sizeOfRows=driver.findElements(locator).size();
+        Assert.assertEquals(100,sizeOfRows);
+    }
 }

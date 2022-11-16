@@ -54,4 +54,6 @@ public class BEstepdefs {
     public void user_validates_the_response() {
         BackendValidations.validateCryptoInfo(EnvGlobals.ethereumId);
     }
+
+
 }

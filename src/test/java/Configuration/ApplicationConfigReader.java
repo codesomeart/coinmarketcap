@@ -18,13 +18,23 @@ public class ApplicationConfigReader {
     @Property("conversionCurrency")
     private String conversionCurrency;
 
+    @Property("chromeUrl")
+    private String Url;
+
     public ApplicationConfigReader() {
         PropertyLoader.newInstance().populate(this);
     }
 
     public String getBaseURL(){return BaseURL; }
+
     public String getAPIKey(){return APIKey; }
+
     public String getconversionAmount(){return conversionAmount; }
+
     public String getConversionCurrency(){return conversionCurrency; }
+
+    public String getUrl() {
+        return this.Url;
+    }
 
 }
