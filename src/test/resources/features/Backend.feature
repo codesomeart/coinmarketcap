@@ -6,12 +6,22 @@ Feature: Assignment Scenarios
     Given user enters API key
     And user hits currency mapping API
     And user gets the response
-    When user validates status code
+    And user validates status code
     Then user converts currency "<sourceCurrency>" into BOB
-    When user validates status code
+    And user validates status code
 
     Examples:
     | sourceCurrency |
     | BTC            |
     | USDT           |
     | ETH            |
+
+    @Assignment
+    Scenario: user wants to execute cryptocurrency info call
+      Given user enters API key
+      And user hits currency info API
+      And user validates the response
+      And user validates status code
+
+
+

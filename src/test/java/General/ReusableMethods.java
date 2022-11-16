@@ -24,8 +24,7 @@ public class ReusableMethods {
         EnvGlobals.requestSpecification = REQUEST.given().headers(headers);
     }
 
-    public static void whenFunction(String requestType, String endPoint) {
-        String[] str={"USDT","BTC","ETH"};
+    public static void whenFunction(String requestType, String endPoint,String queryParamName, String queryParamValue) {
         byte var3 = -1;
         switch(requestType.hashCode()) {
             case -1335458389:
@@ -56,19 +55,19 @@ public class ReusableMethods {
 
         switch(var3) {
             case 0:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().post(endPoint);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam(queryParamName,queryParamValue).post(endPoint);
                 break;
             case 1:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().get(endPoint);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam(queryParamName,queryParamValue).get(endPoint);
                 break;
             case 2:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().delete(endPoint);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam(queryParamName,queryParamValue).delete(endPoint);
                 break;
             case 3:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().put(endPoint);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam(queryParamName,queryParamValue).put(endPoint);
                 break;
             case 4:
-                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().patch(endPoint);
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParam(queryParamName,queryParamValue).patch(endPoint);
         }
 
     }
@@ -112,8 +111,8 @@ public class ReusableMethods {
     public static String fetchIds(String nameOfCurrency){
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         id = jsonPathEvaluator.get("data");
-        int ActualCount1 = id.size();
-        for (int i = 0 ;i<ActualCount1;i++){
+        int actualCount = id.size();
+        for (int i = 0 ;i<actualCount;i++){
             if (ReusableMethods.getResponsePath("data["+i+"].name").equals(nameOfCurrency)){
                 EnvGlobals.cryptoId=ReusableMethods.getResponsePath("data["+i+"].id");
                 break;

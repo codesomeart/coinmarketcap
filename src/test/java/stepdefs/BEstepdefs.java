@@ -4,10 +4,10 @@ import Configuration.Endpoints;
 import Configuration.EnvGlobals;
 import Configuration.configProperties;
 import General.ReusableMethods;
+import Validations.BackendValidations;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 
 public class BEstepdefs {
@@ -23,7 +23,7 @@ public class BEstepdefs {
         ReusableMethods.currencyMapping(configProperties.BaseURL + Endpoints.cryptoMap);
     }
 
-    @When("user validates status code")
+    @And("user validates status code")
     public void user_validates_status_code(){
         ReusableMethods.thenFunction(200);
     }
@@ -43,5 +43,15 @@ public class BEstepdefs {
         RestAssured.baseURI= configProperties.BaseURL;
         ReusableMethods.givenHeaders(ReusableMethods.headers("X-CMC_PRO_API_KEY", configProperties.APIKey));
         ReusableMethods.currencyConversion(configProperties.BaseURL + Endpoints.conversionTool,configProperties.conversionAmount,sourceCurrency);
+    }
+
+    @Then("user hits currency info API")
+    public void user_hits_currency_info_API() {
+        ReusableMethods.whenFunction("get",configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
+    }
+
+    @And("user validates the response")
+    public void user_validates_the_response() {
+        BackendValidations.validateCryptoInfo(EnvGlobals.ethereumId);
     }
 }

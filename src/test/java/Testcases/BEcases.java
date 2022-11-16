@@ -11,7 +11,7 @@ public class BEcases {
     public static void getBitcoinId(){
         RestAssured.baseURI= configProperties.BaseURL;
         ReusableMethods.givenHeaders(ReusableMethods.headers("X-CMC_PRO_API_KEY", configProperties.APIKey));
-        ReusableMethods.whenFunction("get", configProperties.BaseURL + "/v1/cryptocurrency/map");
+//        ReusableMethods.whenFunction("get", configProperties.BaseURL + "/v1/cryptocurrency/map");
         ReusableMethods.thenFunction(200);
     }
 }
