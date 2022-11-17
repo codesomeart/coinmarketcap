@@ -2,16 +2,15 @@ package General;
 
 import Configuration.EnvGlobals;
 import Configuration.configProperties;
+import com.mysql.cj.exceptions.AssertionFailedException;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,9 +170,40 @@ public class ReusableMethods {
         jse.executeScript("window.scrollBy(0,250)");
     }
 
-    public static void validation(By locator){
-        WebDriver driver = WebDriverFactory.getDriver();
-        int sizeOfRows=driver.findElements(locator).size();
-        Assert.assertEquals(100,sizeOfRows);
+
+    public static void IhaveGivenInput(By Locator, String textboxvalue) {
+        try {
+            WebDriverWait wait = new WebDriverWait(WebDriverFactory.getDriver(), 20);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
+            {
+                WebElement input = WebDriverFactory.getDriver().findElement(Locator);
+                Thread.sleep(1000);
+                input.clear();
+                input.sendKeys(textboxvalue);
+            }
+        } catch (ElementNotVisibleException e)
+        {
+            throw new AssertionFailedException(String.format("The element provided {0} is not on screen", Locator));
+        }
+        catch (StaleElementReferenceException e)
+        {
+            throw new AssertionFailedException(String.format("The element provided {0} is Stale", Locator));
+        }
+        catch (InvalidElementStateException e)
+        {
+            throw new AssertionFailedException(String.format("The element provided {0} is not in desired state", Locator));
+        }
+        catch (Exception e)
+        {
+            throw new AssertionFailedException(String.format("The element provided {0} is invalid", Locator));
+        }
     }
+
+    @AfterTest
+    public static void quitDriver(){
+        WebDriver driver = WebDriverFactory.getDriver();
+        driver.close();
+        driver.quit();
+    }
+
 }

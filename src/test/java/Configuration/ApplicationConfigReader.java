@@ -21,6 +21,12 @@ public class ApplicationConfigReader {
     @Property("chromeUrl")
     private String Url;
 
+    @Property("APIv1")
+    private String v1;
+
+    @Property("APIv2")
+    private String v2;
+
     public ApplicationConfigReader() {
         PropertyLoader.newInstance().populate(this);
     }
@@ -29,9 +35,13 @@ public class ApplicationConfigReader {
 
     public String getAPIKey(){return APIKey; }
 
-    public String getconversionAmount(){return conversionAmount; }
+    public String getConversionAmount(){return conversionAmount; }
 
     public String getConversionCurrency(){return conversionCurrency; }
+
+    public String getAPIv1(){return v1; }
+
+    public String getAPIv2(){return v2; }
 
     public String getUrl() {
         return this.Url;

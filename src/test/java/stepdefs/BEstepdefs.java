@@ -23,9 +23,9 @@ public class BEstepdefs {
         ReusableMethods.currencyMapping(configProperties.BaseURL + Endpoints.cryptoMap);
     }
 
-    @And("user validates status code")
-    public void user_validates_status_code(){
-        ReusableMethods.thenFunction(200);
+    @And("^user validates status code is (\\d+)$")
+    public void user_validates_status_code(int statusCode){
+        ReusableMethods.thenFunction(statusCode);
     }
 
     @And("user gets the response")
@@ -52,7 +52,7 @@ public class BEstepdefs {
 
     @And("user validates the response")
     public void user_validates_the_response() {
-        BackendValidations.validateCryptoInfo(EnvGlobals.ethereumId);
+        BackendValidations.validateCryptoInfo();
     }
 
 

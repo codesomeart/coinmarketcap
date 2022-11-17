@@ -6,9 +6,9 @@ Feature: Assignment Scenarios
     Given user enters API key
     And user hits currency mapping API
     And user gets the response
-    And user validates status code
+    And user validates status code is 200
     Then user converts currency "<sourceCurrency>" into BOB
-    And user validates status code
+    And user validates status code is 200
 
     Examples:
     | sourceCurrency |
@@ -21,12 +21,19 @@ Feature: Assignment Scenarios
       Given user enters API key
       And user hits currency info API
       And user validates the response
-      And user validates status code
+      And user validates status code is 200
 
     @Assignment
     Scenario: user wants to run case
       Given user wants to run case
       And user wants to scroll
+
+  @Assignment
+  Scenario: user wants to run case
+    Given user wants to run case
+    Then user clicks on filter button
+    And user selects price filter
+    Then user selects market-cap filter
 
 
 
