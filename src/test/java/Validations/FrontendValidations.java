@@ -23,7 +23,7 @@ public class FrontendValidations {
         WebDriver driver = WebDriverFactory.getDriver();
         int size=driver.findElements(firstLocator).size();
         for(int i=0;i<size;i++){
-            priceText=(driver.findElements(firstLocator).get(i).getText().replaceAll("[$]",""));
+            priceText=(driver.findElements(firstLocator).get(i).getText().replaceAll("[$,]",""));
             price=Float.parseFloat(priceText);
             System.out.println(price);
             marketCapText=(driver.findElements(secondLocator).get(i).getText().replaceAll("[$,]",""));
