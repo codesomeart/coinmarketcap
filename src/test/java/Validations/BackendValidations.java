@@ -7,25 +7,52 @@ import org.testng.Assert;
 import java.util.List;
 
 public class BackendValidations {
-    public static List id;
+    public static List dataSize;
 
-    public static void validateCryptoInfo() {
+    public static void validateCryptoInfo(int id) {
         Assert.assertEquals("2015-08-07T00:00:00.000Z", ReusableMethods.getResponsePath("data." + EnvGlobals.ethereumId + ".date_added"));
         Assert.assertEquals("https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png", ReusableMethods.getResponsePath("data." + EnvGlobals.ethereumId + ".logo"));
         Assert.assertEquals("https://github.com/ethereum/wiki/wiki/White-Paper", ReusableMethods.getResponsePath("data." + EnvGlobals.ethereumId + ".urls.technical_doc[0]"));
         Assert.assertEquals("ETH", ReusableMethods.getResponsePath("data." + EnvGlobals.ethereumId + ".symbol"));
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
-        id = jsonPathEvaluator.get("data.1027.tags");
-        int actualCount = id.size();
-            for (int i = 0; i < actualCount; i++) {
-                if (ReusableMethods.getResponsePath("data.1027.tags[" + i + "]").equals("Mineable")) {
-                    break;
-                }
-                else{
-                    Assert.fail("Validation Failed. Couldn't find Mineable tag");
-                }
+        dataSize = jsonPathEvaluator.get("data." + id + ".tags");
+        int actualCount = dataSize.size();
+        for (int i = 0; i < actualCount; i++) {
+            if (ReusableMethods.getResponsePath("data." + dataSize + ".tags[" + i + "]").equals("mineable")) {
+                break;
+            } else {
+                Assert.fail("Validation Failed. Couldn't find Mineable tag");
             }
+        }
 
-            }
     }
 
+    public static void validateFetchIds(int actualCount) {
+        JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
+        for (int i = 1; i <= actualCount; i++) {
+            dataSize = jsonPathEvaluator.get("data." + i + ".tags");
+            int actualCount1 = dataSize.size();
+            for (int j = 0; j < actualCount1; j++) {
+                if (ReusableMethods.getResponsePath("data." + (i) + ".tags[" + j + "]").equals("mineable")) {
+                    System.out.println(ReusableMethods.getResponsePath("data." + i + ".name") + " has mineable tag");
+                    validateCountries(i);
+                }
+
+            }
+        }
+    }
+
+    public static void validateCountries(int currencyId) {
+        JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
+        dataSize = jsonPathEvaluator.get("data." + currencyId + ".tags");
+        int actualCount = dataSize.size();
+        for (int i = 0; i < actualCount; i++) {
+            if (ReusableMethods.getResponsePath("data." + currencyId + ".tags[" + i + "]").equals("mineable")) {
+                break;
+            } else {
+                Assert.fail("Validation Failed. Couldn't find Mineable tag");
+            }
+
+        }
+    }
+}

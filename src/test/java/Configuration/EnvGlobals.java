@@ -12,4 +12,6 @@ public class EnvGlobals {
     public static String USDTid;
     public static String ethereumId;
     public static String cryptoId;
+    public static int actualDataCount;
+
 }

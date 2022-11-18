@@ -29,7 +29,7 @@ public class ReusableMethods {
         EnvGlobals.requestSpecification = REQUEST.given().headers(headers);
     }
 
-    public static void whenFunction(String requestType, String endPoint,String queryParamName, String queryParamValue) {
+    public static void whenFunctionWithParams(String requestType, String endPoint,String queryParamName, String queryParamValue) {
         byte var3 = -1;
         switch(requestType.hashCode()) {
             case -1335458389:
@@ -77,6 +77,56 @@ public class ReusableMethods {
 
     }
 
+    public static void whenFunctionWithListOfParams(String requestType, String endPoint,String queryParam) {
+        String str="1,2,3,4,5,6,7,8,9,10";
+        byte var3 = -1;
+        switch(requestType.hashCode()) {
+            case -1335458389:
+                if (requestType.equals("delete")) {
+                    var3 = 2;
+                }
+                break;
+            case 102230:
+                if (requestType.equals("get")) {
+                    var3 = 1;
+                }
+                break;
+            case 111375:
+                if (requestType.equals("put")) {
+                    var3 = 3;
+                }
+                break;
+            case 3446944:
+                if (requestType.equals("post")) {
+                    var3 = 0;
+                }
+                break;
+            case 106438728:
+                if (requestType.equals("patch")) {
+                    var3 = 4;
+                }
+        }
+
+        switch(var3) {
+            case 0:
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams(queryParam,str).post(endPoint);
+                break;
+            case 1:
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams(queryParam,str).get(endPoint);
+                break;
+            case 2:
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams(queryParam,str).delete(endPoint);
+                break;
+            case 3:
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams(queryParam,str).put(endPoint);
+                break;
+            case 4:
+                EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams(queryParam,str).patch(endPoint);
+        }
+
+    }
+
+
     public static String getResponsePath(String key) {
         return EnvGlobals.response.getBody().path(key, new String[0]) == null ? "" : EnvGlobals.response.getBody().path(key, new String[0]).toString();
     }
@@ -113,7 +163,7 @@ public class ReusableMethods {
 
     }
 
-    public static String fetchIds(String nameOfCurrency){
+    public static String fetchParticularIds(String nameOfCurrency){
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         id = jsonPathEvaluator.get("data");
         int actualCount = id.size();
@@ -124,6 +174,16 @@ public class ReusableMethods {
             }
         }
         return EnvGlobals.cryptoId;
+    }
+
+    public static void fetchIds(){
+        Map<String, String> id;
+        JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
+        id=jsonPathEvaluator.get("data");
+        EnvGlobals.actualDataCount = id.size();
+        for (int i = 1 ;i<=EnvGlobals.actualDataCount;i++){
+            System.out.println(ReusableMethods.getResponsePath("data." + i + ".id"));
+        }
     }
 
     public static void arriveToWebsite(){

@@ -8,6 +8,7 @@ import Validations.BackendValidations;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 
 public class BEstepdefs {
@@ -30,11 +31,11 @@ public class BEstepdefs {
 
     @And("^user extracts the currency Ids$")
     public void user_extracts_the_currency_Ids(){
-        EnvGlobals.bitcoinId=ReusableMethods.fetchIds("Bitcoin");
+        EnvGlobals.bitcoinId=ReusableMethods.fetchParticularIds("Bitcoin");
         System.out.println("Bitcoin id is: " + EnvGlobals.bitcoinId);
-        EnvGlobals.USDTid=ReusableMethods.fetchIds("Tether");
+        EnvGlobals.USDTid=ReusableMethods.fetchParticularIds("Tether");
         System.out.println("USDT id is: " + EnvGlobals.USDTid);
-        EnvGlobals.ethereumId=ReusableMethods.fetchIds("Ethereum");
+        EnvGlobals.ethereumId=ReusableMethods.fetchParticularIds("Ethereum");
         System.out.println("Ethereum id is: " + EnvGlobals.ethereumId);
     }
 
@@ -45,13 +46,22 @@ public class BEstepdefs {
 
     @Then("^user hits currency info API$")
     public void user_hits_currency_info_API() {
-        ReusableMethods.whenFunction("get",configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
+        ReusableMethods.whenFunctionWithParams("get",configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
     }
 
     @And("^user validates the API response$")
     public void user_validates_the_response() {
-        BackendValidations.validateCryptoInfo();
+        BackendValidations.validateCryptoInfo(1027);
     }
 
+    @When("^user hits the currency info API$")
+    public void user_hits_the_currency_info_api(){
+        ReusableMethods.whenFunctionWithListOfParams("get",configProperties.BaseURL + Endpoints.cryptoInfo,"id");
+    }
 
+    @When("^user verifies the currencies with mineable tag$")
+    public void user_verifies_the_currencies_with_mineable_tag(){
+        ReusableMethods.fetchIds();
+        BackendValidations.validateFetchIds(EnvGlobals.actualDataCount);
+    }
 }

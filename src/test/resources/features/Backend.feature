@@ -24,6 +24,14 @@ Feature: Backend Scenarios
       And user validates the API response
       And user validates status code is 200
 
+  @backend
+  Scenario: user wants to execute cryptocurrency info call
+    Given user enters API key
+    When user hits the currency info API
+    Then user validates status code is 200
+    And user verifies the currencies with mineable tag
+
+
 
 
 
