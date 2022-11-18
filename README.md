@@ -8,11 +8,18 @@ Packages
 
 ### Com.cucumber.tests Package
 1.update tags in **RunCukesTest** for executing particular feature file.
+**@All** - This tag includes both frontend and backend cases
 **@backend** - This tag is for all backend cases
-**2frontend** - This tag is for all frontend cases
+**@frontend** - This tag is for all frontend cases
+
+### Execution Through CMD ###
+Execute these commands according to the cases that you want to execute
+mvn test -Dcucumber.filter.tags="@All"
+mvn test -Dcucumber.filter.tags="@frontend"
+mvn test -Dcucumber.filter.tags="@backend"
 
 ### General Package
-1. General functions are defined in **GeneralFunctions** class
+1. General functions are defined in **ResusableMethods** class
 2. WebDriver related functions defined in **WebDriverFactory** class
 
 ### stepdefs Package
@@ -27,18 +34,9 @@ Pre-requisites:
 Steps to setup:
 - Clone repository
 - Open project on IntelliJ through pom.xml file
-- Checkout develop branch
-    - Git checkout -f develop
 
 Steps to execute script:
 - Right click TestRunner file and Run it
 - Wait for full execution
 
-Setup of Jenkins Locally:
-Jenkins setup:
-* Tutorial link: https://www.guru99.com/download-install-jenkins.html
-- Click on Manage Jenkins
-- Click on Global Tool Configuration
-- Under Maven, add Name (“mvnLatest”) and check Install automatically
-- Click on Apply and then Save
 

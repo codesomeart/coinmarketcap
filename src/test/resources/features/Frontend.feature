@@ -1,4 +1,4 @@
-@frontend
+@All @frontend
 Feature: Frontend Scenarios
 
   @frontend

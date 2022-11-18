@@ -25,10 +25,15 @@ public class FrontendValidations {
         for(int i=0;i<size;i++){
             priceText=(driver.findElements(firstLocator).get(i).getText().replaceAll("[$]",""));
             price=Float.parseFloat(priceText);
+            System.out.println(price);
             marketCapText=(driver.findElements(secondLocator).get(i).getText().replaceAll("[$,]",""));
             marketCap=Long.parseLong(marketCapText);
-            if ((price>=101.00&&price<=1000.00)&&(marketCap>=1000000000&&marketCap<=maxValue)){
+            System.out.println(marketCap);
+            if ((price>=101.00&&price<=1000.00)&&(marketCap>=1000000000 && marketCap<=maxValue)){
                 System.out.println("Passed");
+            }
+            else{
+                Assert.fail("Range not matching..");
             }
         }
     }

@@ -1,4 +1,4 @@
-@backend
+@All @backend
 Feature: Backend Scenarios
 
   @backend
