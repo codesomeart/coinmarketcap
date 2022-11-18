@@ -4,7 +4,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 import static Configuration.configProperties.Url;
@@ -13,7 +12,7 @@ public class WebDriverFactory {
 
     static WebDriver driver;
 
-    public static WebDriver getInstance() throws MalformedURLException {
+    public static WebDriver getInstance(){
         finishDriver();
         WebDriverManager.chromedriver().setup();
         ChromeOptions op = new ChromeOptions();

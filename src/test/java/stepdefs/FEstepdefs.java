@@ -3,6 +3,7 @@ package stepdefs;
 import General.ReusableMethods;
 import Validations.FrontendValidations;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
 
 public class FEstepdefs {
@@ -21,25 +22,33 @@ public class FEstepdefs {
     public static By minPriceFilter=By.xpath("//input[@class=\"sc-9cbf023e-0 WbXLA sc-67bdc129-3 eduQxS\"][@data-qa-id=\"range-filter-input-min\"]");
     public static By applyFilterBtn=By.xpath("//button[@class=\"sc-a4a6801b-0 glxMF cmc-filter-button\"][text()=\"Apply Filter\"]");
     public static By closeFilters=By.xpath("//*[local-name()='svg'][@class=\"sc-aef7b723-0 dsDrxm icon\"]");
-    public static By validateFilteredRows=By.xpath("//div[@class=\"sc-853bfcae-1 eibzVK\"]/table/tbody");
     public static By validateFilters=By.xpath("//*[@class=\"sc-853bfcae-2 eVOXbZ cmc-table  \"]//tbody//a[@class=\"cmc-link\"]//span");
+    public static By validateMarketCap=By.xpath("//*[@class=\"sc-853bfcae-2 eVOXbZ cmc-table  \"]//tbody//span[@class=\"sc-65d3c89-1 dKgvPU\"]");
 
 
-    @And("user wants to run case")
-    public void user_wants_to_run_case() {
+    @And("^user lands on coinmarketcap website$")
+    public void user_lands_on_coinmarketcap_website() {
         ReusableMethods.arriveToWebsite();
     }
 
-    @And("user wants to scroll")
+    @And("^user wants to scroll$")
     public void user_wants_to_scroll() {
         ReusableMethods.ClickingOn(firstButton);
         ReusableMethods.scrollToSpecificHeight();
+    }
+
+    @Then("^user clicks on row filter dropdown$")
+    public void user_clicks_on_row_filter_dropdown() {
         ReusableMethods.ClickingOn(dropdown);
         ReusableMethods.ClickingOn(secondButton);
+    }
+
+    @And("^user validates the number of rows$")
+    public void user_validates_the_number_of_rows() {
         FrontendValidations.validateRows(validateRows);
     }
 
-    @And("user clicks on filter button")
+    @And("^user clicks on filter button$")
     public void user_clicks_on_filter_button() {
         ReusableMethods.ClickingOn(firstButton);
         ReusableMethods.scrollToSpecificHeight();
@@ -47,7 +56,7 @@ public class FEstepdefs {
         ReusableMethods.ClickingOn(subFilterButton);
     }
 
-    @And("user selects price filter")
+    @And("^user selects price filter$")
     public void user_selects_price_filter() {
         ReusableMethods.ClickingOn(priceFilter);
         ReusableMethods.IhaveGivenInput(minPriceFilter,"101");
@@ -55,13 +64,17 @@ public class FEstepdefs {
         ReusableMethods.ClickingOn(applyFilterBtn);
     }
 
-    @And("user selects market-cap filter")
+    @And("^user selects market-cap filter$")
     public void user_selects_marketcap_filter() {
         ReusableMethods.ClickingOn(marketCapFilter);
         ReusableMethods.IhaveGivenInput(minMarketCap,"1000000000");
         ReusableMethods.IhaveGivenInput(maxMarketCap,"10000000000");
         ReusableMethods.ClickingOn(applyFilterBtn);
         ReusableMethods.ClickingOn(closeFilters);
-        FrontendValidations.validateFilters(validateFilters,validateFilteredRows);
+    }
+
+    @And("^user validates both filters$")
+    public void user_validates_both_filters() {
+        FrontendValidations.validateFilters(validateFilters,validateMarketCap);
     }
 }

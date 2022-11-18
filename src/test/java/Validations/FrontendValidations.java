@@ -6,13 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import java.util.ArrayList;
 
-
 public class FrontendValidations {
+    static Long maxValue=10000000000L;
     static String priceText = String.valueOf(new ArrayList<String>());
+    static String marketCapText = String.valueOf(new ArrayList<String>());
     static float price;
-    static float[] newprice;
-
-    static int priceText4;
+    static long marketCap;
 
     public static void validateRows(By locator){
         WebDriver driver = WebDriverFactory.getDriver();
@@ -23,12 +22,12 @@ public class FrontendValidations {
     public static void validateFilters(By firstLocator,By secondLocator){
         WebDriver driver = WebDriverFactory.getDriver();
         int size=driver.findElements(firstLocator).size();
-        System.out.println("size is: " + size);
         for(int i=0;i<size;i++){
             priceText=(driver.findElements(firstLocator).get(i).getText().replaceAll("[$]",""));
             price=Float.parseFloat(priceText);
-            System.out.println(price);
-            if (price>=101.00&&price<=1000.00){
+            marketCapText=(driver.findElements(secondLocator).get(i).getText().replaceAll("[$,]",""));
+            marketCap=Long.parseLong(marketCapText);
+            if ((price>=101.00&&price<=1000.00)&&(marketCap>=1000000000&&marketCap<=maxValue)){
                 System.out.println("Passed");
             }
         }

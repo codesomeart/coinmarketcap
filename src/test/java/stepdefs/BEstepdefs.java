@@ -12,13 +12,13 @@ import io.restassured.RestAssured;
 
 public class BEstepdefs {
 
-    @Given("user enters API key")
+    @Given("^user enters API key$")
     public void user_enters_api_key() {
         RestAssured.baseURI= configProperties.BaseURL;
         ReusableMethods.givenHeaders(ReusableMethods.headers("X-CMC_PRO_API_KEY", configProperties.APIKey));
     }
 
-    @And("user hits currency mapping API")
+    @And("^user hits currency mapping API$")
     public void user_hits_currency_mapping_API(){
         ReusableMethods.currencyMapping(configProperties.BaseURL + Endpoints.cryptoMap);
     }
@@ -28,8 +28,8 @@ public class BEstepdefs {
         ReusableMethods.thenFunction(statusCode);
     }
 
-    @And("user gets the response")
-    public void user_gets_the_response(){
+    @And("^user extracts the currency Ids$")
+    public void user_extracts_the_currency_Ids(){
         EnvGlobals.bitcoinId=ReusableMethods.fetchIds("Bitcoin");
         System.out.println("Bitcoin id is: " + EnvGlobals.bitcoinId);
         EnvGlobals.USDTid=ReusableMethods.fetchIds("Tether");
@@ -40,17 +40,15 @@ public class BEstepdefs {
 
     @Then("^user converts currency \"([^\"]*)\" into BOB$")
     public void user_converts_currency(String sourceCurrency){
-        RestAssured.baseURI= configProperties.BaseURL;
-        ReusableMethods.givenHeaders(ReusableMethods.headers("X-CMC_PRO_API_KEY", configProperties.APIKey));
         ReusableMethods.currencyConversion(configProperties.BaseURL + Endpoints.conversionTool,configProperties.conversionAmount,sourceCurrency);
     }
 
-    @Then("user hits currency info API")
+    @Then("^user hits currency info API$")
     public void user_hits_currency_info_API() {
         ReusableMethods.whenFunction("get",configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
     }
 
-    @And("user validates the response")
+    @And("^user validates the API response$")
     public void user_validates_the_response() {
         BackendValidations.validateCryptoInfo();
     }

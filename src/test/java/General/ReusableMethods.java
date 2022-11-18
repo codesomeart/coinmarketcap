@@ -10,7 +10,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,13 +133,6 @@ public class ReusableMethods {
             throw new RuntimeException();
         }
     }
-
-    public static void scrollFullPage(){
-        WebDriver driver = WebDriverFactory.getDriver();
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("window.scrollBy(0, document.documentElement.scrollHeight)");
-    }
-
 
     public static void ClickingOn(By locator) {
         try {
