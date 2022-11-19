@@ -12,6 +12,7 @@ public class EnvGlobals {
     public static String USDTid;
     public static String ethereumId;
     public static String cryptoId;
+    public static String currencyId="1,2,3,4,5,6,7,8,9,10";
     public static int actualDataCount;
 
 }

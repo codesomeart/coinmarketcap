@@ -31,8 +31,8 @@ public class BackendValidations {
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         for (int i = 1; i <= actualCount; i++) {
             dataSize = jsonPathEvaluator.get("data." + i + ".tags");
-            int actualCount1 = dataSize.size();
-            for (int j = 0; j < actualCount1; j++) {
+            int tagsLength = dataSize.size();
+            for (int j = 0; j < tagsLength; j++) {
                 if (ReusableMethods.getResponsePath("data." + (i) + ".tags[" + j + "]").equals("mineable")) {
                     System.out.println(ReusableMethods.getResponsePath("data." + i + ".name") + " has mineable tag");
                     validateCountries(i);

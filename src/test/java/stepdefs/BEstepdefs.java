@@ -46,7 +46,7 @@ public class BEstepdefs {
 
     @Then("^user hits currency info API$")
     public void user_hits_currency_info_API() {
-        ReusableMethods.whenFunctionWithParams("get",configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
+        ReusableMethods.whenFunctionWithListOfParams(configProperties.BaseURL + Endpoints.cryptoInfo , "id",EnvGlobals.ethereumId);
     }
 
     @And("^user validates the API response$")
@@ -56,7 +56,7 @@ public class BEstepdefs {
 
     @When("^user hits the currency info API$")
     public void user_hits_the_currency_info_api(){
-        ReusableMethods.whenFunctionWithListOfParams("get",configProperties.BaseURL + Endpoints.cryptoInfo,"id");
+        ReusableMethods.whenFunctionWithListOfParams(configProperties.BaseURL + Endpoints.cryptoInfo,"id",EnvGlobals.currencyId);
     }
 
     @When("^user verifies the currencies with mineable tag$")
