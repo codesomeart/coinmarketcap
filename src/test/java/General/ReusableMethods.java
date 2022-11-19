@@ -88,9 +88,6 @@ public class ReusableMethods {
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         id=jsonPathEvaluator.get("data");
         EnvGlobals.actualDataCount = id.size();
-        for (int i = 1 ;i<=EnvGlobals.actualDataCount;i++){
-            System.out.println(ReusableMethods.getResponsePath("data." + i + ".id"));
-        }
     }
 
     public static void arriveToWebsite(){

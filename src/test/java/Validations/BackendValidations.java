@@ -35,14 +35,14 @@ public class BackendValidations {
             for (int j = 0; j < tagsLength; j++) {
                 if (ReusableMethods.getResponsePath("data." + (i) + ".tags[" + j + "]").equals("mineable")) {
                     System.out.println(ReusableMethods.getResponsePath("data." + i + ".name") + " has mineable tag");
-                    validateCountries(i);
+                    validateCurrencies(i);
                 }
 
             }
         }
     }
 
-    public static void validateCountries(int currencyId) {
+    public static void validateCurrencies(int currencyId) {
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         dataSize = jsonPathEvaluator.get("data." + currencyId + ".tags");
         int actualCount = dataSize.size();
