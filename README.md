@@ -7,16 +7,16 @@ Packages
 2. All Features files.
 
 ### Com.cucumber.tests Package
-1.update tags in **RunCukesTest** for executing particular feature file.
-**@All** - This tag includes both frontend and backend cases
-**@backend** - This tag is for all backend cases
-**@frontend** - This tag is for all frontend cases
+1.update tags in **RunCukesTest** for executing particular feature file.  
+**@All** - This tag includes both frontend and backend cases  
+**@backend** - This tag is for all backend cases  
+**@frontend** - This tag is for all frontend cases  
 
 ### Execution Through CMD ###
-Execute these commands according to the cases that you want to execute
-mvn test -Dcucumber.filter.tags="@All"
-mvn test -Dcucumber.filter.tags="@frontend"
-mvn test -Dcucumber.filter.tags="@backend"
+Execute these commands according to the cases that you want to execute  
+mvn test -Dcucumber.filter.tags="@All"  
+mvn test -Dcucumber.filter.tags="@frontend"  
+mvn test -Dcucumber.filter.tags="@backend"  
 
 ### General Package
 1. General functions are defined in **ResusableMethods** class
