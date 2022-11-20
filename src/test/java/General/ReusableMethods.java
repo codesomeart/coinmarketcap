@@ -64,12 +64,6 @@ public class ReusableMethods {
         }
     }
 
-    public static void currencyMapping(String endPoint){
-        String[] str={"USDT","BTC","ETH"};
-        EnvGlobals.response = EnvGlobals.requestSpecification.when().log().all().queryParams("symbol",str[0]+"," +str[1]+","+str[2]).get(endPoint);
-
-    }
-
     public static String fetchParticularIds(String nameOfCurrency){
         JsonPath jsonPathEvaluator = EnvGlobals.response.jsonPath();
         id = jsonPathEvaluator.get("data");

@@ -21,7 +21,7 @@ public class BEstepdefs {
 
     @And("^user hits currency mapping API$")
     public void user_hits_currency_mapping_API(){
-        ReusableMethods.currencyMapping(configProperties.BaseURL + Endpoints.cryptoMap);
+        ReusableMethods.whenFunctionWithListOfParams(configProperties.BaseURL + Endpoints.cryptoMap,"symbol","USDT,BTC,ETH");
     }
 
     @And("^user validates status code is (\\d+)$")
