@@ -16,12 +16,13 @@ public class FrontendValidations {
     public static void validateRows(By locator){
         WebDriver driver = WebDriverFactory.getDriver();
         int sizeOfRows=driver.findElements(locator).size();
+        System.out.println(sizeOfRows);
         Assert.assertEquals(100,sizeOfRows);
     }
 
-    public static void validateFilters(By firstLocator,By secondLocator){
+    public static void validateFilters(By firstLocator,By secondLocator,By thirdLocator){
         WebDriver driver = WebDriverFactory.getDriver();
-        int size=driver.findElements(firstLocator).size();
+        int size=driver.findElements(thirdLocator).size();
         for(int i=0;i<size;i++){
             priceText=(driver.findElements(firstLocator).get(i).getText().replaceAll("[$,]",""));
             price=Float.parseFloat(priceText);
